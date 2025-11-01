@@ -1,0 +1,65 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Анализатор текста" Height="620" Width="820">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Анализатор текста" FontSize="22" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+        <GroupBox Grid.Row="1" Header="Введите текст" Margin="0,0,0,10">
+            <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" FontSize="14"/>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
+            <Button Content="Анализировать" Command="{Binding AnalyzeCommand}"
+                    Background="#FF008000" Foreground="White" Padding="12,6" Margin="5"/>
+            <Button Content="Очистить" Command="{Binding ClearCommand}"
+                    Background="#FFFF4500" Foreground="White" Padding="12,6" Margin="5"/>
+        </StackPanel>
+
+        <GroupBox Grid.Row="3" Header="Результаты" Margin="0,10,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#E3F2FD" Padding="10" CornerRadius="6" Margin="0,0,0,10">
+                    <TextBlock Text="{Binding ResultsSummary}" FontWeight="SemiBold" FontSize="15" TextAlignment="Center"/>
+                </Border>
+                
+                
+                <StackPanel Grid.Row="1" Margin="10">
+                    <TextBlock Text="{Binding AnalysisResult.TotalCharacters, StringFormat='Всего символов: {0}'}" 
+                               FontWeight="Bold" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding AnalysisResult.VowelsCount, StringFormat='Гласные: {0}'}" 
+                               Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding AnalysisResult.ConsonantsCount, StringFormat='Согласные: {0}'}" 
+                               Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding AnalysisResult.DigitsCount, StringFormat='Цифры: {0}'}" 
+                               Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding AnalysisResult.SpacesCount, StringFormat='Пробелы: {0}'}" 
+                               Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding AnalysisResult.SpecialCharactersCount, StringFormat='Спецсимволы: {0}'}" 
+                               Margin="0,0,0,4"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <StatusBar Grid.Row="4" Margin="0,10,0,0">
+            <StatusBarItem Content="{Binding StatusMessage}" FontStyle="Italic"/>
+            <StatusBarItem HorizontalAlignment="Right">
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
